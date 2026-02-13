@@ -1,0 +1,58 @@
+!!brut.androlib.meta.MetaInfo
+apkFileName: com.gy.tv.apk
+compressionType: false
+doNotCompress:
+- resources.arsc
+- assets/.jgapp
+- png
+- jpg
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: com.gy.tv
+sdkInfo:
+  minSdkVersion: '19'
+  targetSdkVersion: '33'
+sharedLibrary: false
+sparseResources: false
+unknownFiles:
+  bin/AndroidManifest.xml: '8'
+  okhttp3/internal/publicsuffix/publicsuffixes.gz: '8'
+  org/jsoup/nodes/entities-base.properties: '8'
+  org/jsoup/nodes/entities-full.properties: '8'
+  tests/Android.mk: '8'
+  tests/AndroidManifest.xml: '8'
+  tests/project.properties: '8'
+  tests/bin/jarlist.cache: '8'
+  tests/res/raw/large_jpeg_1024_500.jpg: '0'
+  tests/src/com/android/volley/CacheDispatcherTest.java: '8'
+  tests/src/com/android/volley/NetworkDispatcherTest.java: '8'
+  tests/src/com/android/volley/RequestQueueTest.java: '8'
+  tests/src/com/android/volley/RequestTest.java: '8'
+  tests/src/com/android/volley/ResponseDeliveryTest.java: '8'
+  tests/src/com/android/volley/mock/MockCache.java: '8'
+  tests/src/com/android/volley/mock/MockHttpClient.java: '8'
+  tests/src/com/android/volley/mock/MockHttpStack.java: '8'
+  tests/src/com/android/volley/mock/MockHttpURLConnection.java: '8'
+  tests/src/com/android/volley/mock/MockNetwork.java: '8'
+  tests/src/com/android/volley/mock/MockRequest.java: '8'
+  tests/src/com/android/volley/mock/MockResponseDelivery.java: '8'
+  tests/src/com/android/volley/mock/TestRequest.java: '8'
+  tests/src/com/android/volley/mock/WaitableQueue.java: '8'
+  tests/src/com/android/volley/toolbox/BasicNetworkTest.java: '8'
+  tests/src/com/android/volley/toolbox/ByteArrayPoolTest.java: '8'
+  tests/src/com/android/volley/toolbox/HttpClientStackTest.java: '8'
+  tests/src/com/android/volley/toolbox/HttpHeaderParserTest.java: '8'
+  tests/src/com/android/volley/toolbox/HurlStackTest.java: '8'
+  tests/src/com/android/volley/toolbox/ImageRequestTest.java: '8'
+  tests/src/com/android/volley/toolbox/PoolingByteArrayOutputStreamTest.java: '8'
+  tests/src/com/android/volley/utils/CacheTestUtils.java: '8'
+  tests/src/com/android/volley/utils/ImmediateResponseDelivery.java: '8'
+usesFramework:
+  ids:
+  - 1
+  tag: null
+version: 2.6.1
+versionInfo:
+  versionCode: '200'
+  versionName: '2.0'
