@@ -1,27 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="30" android:compileSdkVersionCodename="11" android:installLocation="auto" package="com.gy.tv" platformBuildVersionCode="30" platformBuildVersionName="11">
-    <uses-feature android:name="android.hardware.type.television" android:required="false"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true"/>
-    <application android:debuggable="true" android:extractNativeLibs="true" android:label="@string/app_name" android:name="com.shenma.tvlauncher.MyApplication" android:theme="@style/AppTheme">
-        <meta-data android:name="frida Gadget" android:value="main=1,script=/data/local/tmp/vip_hook.js,unix-abstract=/frida-gadget-shenma,debug=0"/>
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:label="@string/app_name" android:name="com.shenma.tvlauncher.SplashActivity" android:screenOrientation="sensor" android:theme="@style/launcherThime" android:windowSoftInputMode="stateAlwaysHidden">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.shenma.tvlauncher"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <!-- 核心权限：仅保留1份INTERNET，去重后保留必要权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- TV设备依赖：设置为非必须，手机可安装 -->
+    <uses-feature
+        android:name="android.hardware.type.television"
+        android:required="false" />
+
+    <!-- 屏幕适配：仅保留1份，覆盖全尺寸 -->
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name="com.stub.StubApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- Frida Gadget 核心配置：必须保留 -->
+        <meta-data
+            android:name="frida Gadget"
+            android:value="script_path=/data/local/tmp/vip_hook.js,debug=true,script_timeout=0" />
+
+        <!-- 主入口Activity：exported=true，横屏 -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:screenOrientation="landscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.MONKEY"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name="com.shenma.tvlauncher.MainActivity" android:screenOrientation="sensor"/>
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name="com.shenma.tvlauncher.VideoPlayActivity" android:screenOrientation="sensor"/>
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name="com.shenma.tvlauncher.SearchActivity" android:screenOrientation="sensor"/>
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="false" android:name="com.shenma.tvlauncher.SettingActivity" android:screenOrientation="sensor"/>
-        <service android:exported="false" android:name="com.shenma.tvlauncher.service.DownloadService"/>
-        <service android:exported="false" android:name="com.shenma.tvlauncher.service.PlayerService"/>
+
+        <!-- TV播放页面：exported=true，横屏 -->
+        <activity
+            android:name=".TVLivePlayerActivity"
+            android:exported="true"
+            android:screenOrientation="landscape" />
+
+        <!-- AI相关服务：exported=true -->
+        <service
+            android:name=".AIOpenService"
+            android:exported="true" />
+
+        <!-- AI相关广播接收器：exported=true -->
+        <receiver
+            android:name=".AIOpenReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 其他Activity：exported=false，横屏 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".SettingActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".VipActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+        <!-- 其他服务：exported=false -->
+        <service
+            android:name=".UpdateService"
+            android:exported="false" />
+        <service
+            android:name=".DownloadService"
+            android:exported="false" />
+
+        <!-- 友盟等第三方配置：保留原有 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="你的友盟APPKEY（保留原有值）" />
+        <meta-data
+            android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="true" />
+
     </application>
+
 </manifest>
